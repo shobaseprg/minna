@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
-const { rules, validate } = require("../controllers/usersController");
-console.log(validate);
+const { rules, validate, signup } = require("../controllers/usersController");
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
@@ -14,6 +12,6 @@ router.get('/signup', function (req, res, next) {
   res.render('users/signup', { messages: messages })
 });
 
-router.post('/signup', rules, validate);
+router.post('/signup', rules, validate, signup);
 
 module.exports = router;

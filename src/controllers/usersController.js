@@ -1,4 +1,5 @@
 const { check, validationResult } = require('express-validator');
+const db = require('../models/index');
 
 const rules = [
   // checkメソッドを使用してバリデーションを実行
@@ -22,13 +23,21 @@ function validate(req, res, next) {
       messages.push(error.msg);
     });
     res.render('users/signup', { messages: messages })
-  } else {
-    req.session.name = req.body.name;
-    console.log(req.session);
-    res.redirect('/home');
   }
+  next();
+}
+function signup(req, res) {
+  req.session.name = req.body.name;
+  db.sequelize.sync()
+    .then(() => db.User.create({
+      name: req.body.name,
+      email: req.body.email,
+      pass: req.body.password
+    })).then(usr => {
+      res.redirect('/home');
+    })
 }
 
 module.exports =
-  { rules, validate }
+  { rules, validate, signup }
   ;
