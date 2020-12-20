@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang='ja'>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+
+  <!-- Bootstrap CSS -->
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css'
+    integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' crossorigin='anonymous'>
+
+  <title>nodeDocker</title>
+</head>
+
+<body>
+  <header>
+    <ul class='nav justify-content-end border'>
+      <li class='nav-item'>
+        <a class='nav-link active' href='login'>Login</a>
+      </li>
+      <li class='nav-item'>
+        <a class='nav-link' href='signup'>Register</a>
+      </li>
+    </ul>
+  </header>
+  <% messages.forEach((message) => { %>
+  <p><%= message %></p>
+  <% }); %>
+
+  <div class='container'>
+    <div class='row justify-content-center'>
+      <!-- フォーム -->
+      <form class='col-7 mt-3 border pl-0 pr-0' action='/users/signup' method='post'>
+
+        <div class='alert alert-secondary w-100' role='alert'>
+          Register
+        </div>
+        <!-- 名前 -->
+        <div class='form-group d-flex align-items-center '>
+          <div class='col-3 d-flex justify-content-end'>
+            <div for='exampleInputName '>Name</div>
+          </div>
+          <input type='text' class='form-control col-7' id='NameForm' name='name' aria-describedby='nameHelp'
+            placeholder='Enter name'>
+        </div>
+        <!-- メール -->
+        <div class='form-group d-flex align-items-center '>
+          <div class='col-3 d-flex justify-content-end'>
+            <div for='exampleInputEmail1 '>Email address</div>
+          </div>
+          <input type='email' class='form-control col-7' id='EmailForm' name='email' aria-describedby='emailHelp'
+            placeholder='Enter email'>
+        </div>
+        <!-- パスワード -->
+        <div class='form-group d-flex align-items-center'>
+          <div class='col-3 d-flex justify-content-end'>
+            <div for='exampleInputEmail1 '>Password</div>
+          </div>
+          <input type='password' class='form-control col-7' id='PasswordForm' name='password' placeholder='Password'>
+        </div>
+        <!-- パスワード確認 -->
+        <div class='form-group d-flex align-items-center'>
+          <div class='col-3 d-flex justify-content-end'>
+            <div for='exampleInputEmail1 '>Confirm Password</div>
+          </div>
+          <input type='password' class='form-control col-7' id='confirmPasswordForm' name='confirmPassword'
+            placeholder='Confirm Password'>
+        </div>
+        <!-- ボタン -->
+        <div class='form-group d-flex'>
+          <div class='col-3'></div>
+          <button id='btn' class='btn btn-primary'>Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- <script type='text/javascript' src='/javascript/validator.js'></script> -->
+
+  <script src='https://code.jquery.com/jquery-3.5.1.slim.min.js'
+    integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj'
+    crossorigin='anonymous'></script>
+  <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'
+    integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo'
+    crossorigin='anonymous'></script>
+  <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js'
+    integrity='sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI'
+    crossorigin='anonymous'></script>
+</body>
+
+</html>
