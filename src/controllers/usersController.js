@@ -1,5 +1,8 @@
 const { check, validationResult } = require('express-validator');
 const db = require('../models/index');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 const rules = [
   // checkメソッドを使用してバリデーションを実行
@@ -29,10 +32,11 @@ function validate(req, res, next) {
 function signup(req, res) {
   req.session.name = req.body.name;
   db.sequelize.sync()
-    .then(() => db.User.create({
+    .then(() => bcrypt.hash(req.body.password, 10))
+    .then(hashedPassword => db.User.create({
       name: req.body.name,
       email: req.body.email,
-      pass: req.body.password
+      pass: hashedPassword
     })).then(usr => {
       res.redirect('/home');
     })
