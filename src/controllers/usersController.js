@@ -42,6 +42,24 @@ function signup(req, res) {
     })
 }
 
+function login(req, res) {
+  db.User.findOne({ where: { email: req.body.email } })
+    .then((user) => {
+      if (!user) {
+        res.redirect("login");
+      }
+      return user;
+    })
+    .then((user) => {
+      let resultMatch = bcrypt.compareSync(req.body.password, user.pass);
+      console.log(resultMatch);
+      if (resultMatch) {
+        res.redirect("/home");
+        console.log("pass:mach")
+      }
+      res.redirect("login");
+    })
+}
+
 module.exports =
-  { rules, validate, signup }
-  ;
+  { rules, validate, signup, login };

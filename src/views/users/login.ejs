@@ -26,7 +26,7 @@
   </header>
   <div class='container'>
     <div class='row justify-content-center'>
-      <form class='col-7 mt-3 border pl-0 pr-0'>
+      <form class='col-7 mt-3 border pl-0 pr-0' method="post" action="">
 
         <div class='alert alert-secondary w-100' role='alert'>
           Login
@@ -36,15 +36,16 @@
           <div class='col-3 d-flex justify-content-end'>
             <div for='exampleInputEmail1 '>Email address</div>
           </div>
-          <input type='email' class='form-control col-7' id='exampleInputEmail1' aria-describedby='emailHelp'
-            placeholder='Enter email'>
+          <input type='email' class='form-control col-7' id='exampleInputEmail1' name='email'
+            aria-describedby='emailHelp' placeholder='Enter email'>
         </div>
 
         <div class='form-group d-flex align-items-center'>
           <div class='col-3 d-flex justify-content-end'>
             <div for='exampleInputEmail1 '>Password</div>
           </div>
-          <input type='password' class='form-control col-7' id='exampleInputPassword1' placeholder='Password'>
+          <input type='password' class='form-control col-7' id='exampleInputPassword1' name='password'
+            placeholder='Password'>
         </div>
         <div class='form-group d-flex'>
           <div class='col-3'></div>
