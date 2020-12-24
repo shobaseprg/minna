@@ -1,4 +1,5 @@
 const { check, validationResult } = require('express-validator');
+const app = require('../app');
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -11,7 +12,7 @@ const rules = [
   check('password').not().isEmpty().withMessage('パスワードは必須です'),
   check('password').isLength({ min: 7 }).withMessage('パスワードは７文字以上です'),
   check('password').
-    custom((value, { req }) => {
+    custom((_value, { req }) => {
       if (req.body.password === req.body.confirmPassword) {
         return true;
       }
@@ -37,29 +38,37 @@ function signup(req, res) {
       name: req.body.name,
       email: req.body.email,
       pass: hashedPassword
-    })).then(usr => {
+    })).then(_usr => {
       res.redirect('/home');
     })
 }
 
 function login(req, res) {
+  console.log("post login");
   db.User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
-        res.redirect("login");
+        return res.redirect("login");
       }
       return user;
     })
     .then((user) => {
+      console.log("login2");
+      console.log(user);
       let resultMatch = bcrypt.compareSync(req.body.password, user.pass);
-      console.log(resultMatch);
       if (resultMatch) {
-        res.redirect("/home");
-        console.log("pass:mach")
+        const payload = {
+          email: user.email
+        }
+        jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
+
+        return res.redirect("/home");
       }
-      res.redirect("login");
+      console.log("no mach");
+      return res.redirect("login");
     })
 }
+
 
 module.exports =
   { rules, validate, signup, login };

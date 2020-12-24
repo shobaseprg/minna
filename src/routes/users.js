@@ -4,6 +4,7 @@ const { rules, validate, signup, login } = require("../controllers/usersControll
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
+  console.log("get login");
   res.render('users/login');
 });
 
