@@ -60,8 +60,8 @@ function login(req, res) {
         const payload = {
           email: user.email
         }
-        jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
-
+        let token = jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
+        req.session.token = token;
         return res.redirect("/home");
       }
       console.log("no mach");

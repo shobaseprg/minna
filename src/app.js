@@ -6,7 +6,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 const config = require('./config');
 
 const indexRouter = require('./routes/index');
