@@ -1,5 +1,4 @@
 const { check, validationResult } = require('express-validator');
-const app = require('../app');
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -44,7 +43,6 @@ function signup(req, res) {
 }
 
 function login(req, res) {
-  console.log("post login");
   db.User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
@@ -53,7 +51,6 @@ function login(req, res) {
       return user;
     })
     .then((user) => {
-      console.log("login2");
       console.log(user);
       let resultMatch = bcrypt.compareSync(req.body.password, user.pass);
       if (resultMatch) {
@@ -64,11 +61,14 @@ function login(req, res) {
         req.session.token = token;
         return res.redirect("/home");
       }
-      console.log("no mach");
       return res.redirect("login");
     })
 }
 
+function logout(req, res) {
+  req.session.token = null; //. セッションをリセット
+  res.redirect('/users/login');
+}
 
 module.exports =
-  { rules, validate, signup, login };
+  { rules, validate, signup, login, logout };
