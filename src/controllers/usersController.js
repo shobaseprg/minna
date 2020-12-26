@@ -37,7 +37,12 @@ function signup(req, res) {
       name: req.body.name,
       email: req.body.email,
       pass: hashedPassword
-    })).then(_usr => {
+    })).then(user => {
+      const payload = {
+        email: user.email
+      }
+      let token = jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
+      req.session.token = token;
       res.redirect('/home');
     })
 }

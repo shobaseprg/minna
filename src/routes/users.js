@@ -10,7 +10,8 @@ router.get('/login', function (req, res, next) {
 router.post("/login", login);
 
 router.get('/signup', function (req, res, next) {
-  res.render('users/signup')
+  let messages = [];
+  res.render('users/signup', { messages: messages })
 });
 
 router.post('/signup', rules, validate, signup);
