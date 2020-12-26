@@ -18,6 +18,15 @@ const rules = [
     }).withMessage('パスワードが一致しません。')
 ]
 
+function makeToken(req, res, user) {
+  const payload = {
+    email: user.email
+  }
+  let token = jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
+  req.session.token = token;
+  res.redirect('/home');
+}
+
 function validate(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -37,14 +46,7 @@ function signup(req, res) {
       name: req.body.name,
       email: req.body.email,
       pass: hashedPassword
-    })).then(user => {
-      const payload = {
-        email: user.email
-      }
-      let token = jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
-      req.session.token = token;
-      res.redirect('/home');
-    })
+    })).then(user => makeToken(req, res, user));
 }
 
 function login(req, res) {
@@ -58,14 +60,7 @@ function login(req, res) {
     .then((user) => {
       console.log(user);
       let resultMatch = bcrypt.compareSync(req.body.password, user.pass);
-      if (resultMatch) {
-        const payload = {
-          email: user.email
-        }
-        let token = jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
-        req.session.token = token;
-        return res.redirect("/home");
-      }
+      if (resultMatch) (makeToken(req, res, user));
       return res.redirect("login");
     })
 }
