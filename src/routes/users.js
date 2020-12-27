@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { rules, validate, signup, login, logout } = require("../controllers/usersController");
+const { signup, login, logout } = require("../controllers/usersController");
+const { rules, validate } = require("../controllers/validateController");
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
