@@ -12,7 +12,7 @@ router.post("/login", login);
 
 router.get('/signup', function (req, res, next) {
   let messages = [];
-  res.render('users/signup', { messages: messages })
+  res.render('users/signup', { messages })
 });
 
 router.post('/signup', rules, validate, signup);
