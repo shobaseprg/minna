@@ -18,7 +18,7 @@ const rules = [
     }).withMessage('パスワードが一致しません。')
 ]
 
-function makeToken(req, res, user) {
+const makeToken = (req, res, user) => {
   const payload = {
     email: user.email
   }
@@ -27,7 +27,7 @@ function makeToken(req, res, user) {
   res.redirect('/home');
 }
 
-function validate(req, res, next) {
+const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     let messages = [];
@@ -38,7 +38,7 @@ function validate(req, res, next) {
   }
   next();
 }
-function signup(req, res) {
+const signup = (req, res) => {
   req.session.name = req.body.name;
   db.sequelize.sync()
     .then(() => bcrypt.hash(req.body.password, 10))
@@ -49,7 +49,7 @@ function signup(req, res) {
     })).then(user => makeToken(req, res, user));
 }
 
-function login(req, res) {
+const login = (req, res) => {
   db.User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (!user) {
@@ -64,7 +64,7 @@ function login(req, res) {
       return res.redirect("login");
     })
 }
-function logout(req, res) {
+const logout = (req, res) => {
   req.session.token = null; //. セッションをリセット
   res.redirect('/users/login');
 }
