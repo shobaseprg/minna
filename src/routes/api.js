@@ -1,8 +1,8 @@
 
 const jwt = require('jsonwebtoken');
 
-function auth(req, res, next) {
-  let token = (req.session && req.session.token) ? req.session.token : null;
+const auth = (req, res, next) => {
+  const token = (req.session && req.session.token) ? req.session.token : null;
 
   if (!token) { //トークンがなければ
     res.status(401);

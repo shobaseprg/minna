@@ -11,7 +11,7 @@ router.get('/login', function (req, res, next) {
 router.post("/login", login);
 
 router.get('/signup', function (req, res, next) {
-  let messages = [];
+  const messages = [];
   res.render('users/signup', { messages })
 });
 

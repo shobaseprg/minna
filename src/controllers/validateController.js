@@ -18,7 +18,7 @@ const rules = [
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    let messages = [];
+    const messages = [];
     errors.errors.forEach((error) => {
       messages.push(error.msg);
     });
