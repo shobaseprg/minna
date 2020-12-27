@@ -7,14 +7,14 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const config = require('./config');
-
+const env = process.env
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
 const auth = require('./routes/api')
 
 app.use(session({
-  secret: 'secret',
+  secret: env.SECRET_KEY,
   resave: false,
   saveUninitialized: false,
   cookie: {

@@ -1,10 +1,12 @@
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const env = process.env
+console.log(env.SECRET_KEY);
 
 const makeToken = (req, res, user_id) => {
   const payload = { user_id }
-  const token = jwt.sign(payload, 'secretKey', { expiresIn: '24h' });//第二引数'secretKeyのみ
+  const token = jwt.sign(payload, env.SECRET_KEY, { expiresIn: '24h' });//第二引数'secretKeyのみ
   req.session.token = token;
   res.redirect('/home');
 }
